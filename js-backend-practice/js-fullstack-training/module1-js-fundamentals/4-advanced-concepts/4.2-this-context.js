@@ -71,9 +71,9 @@ const user2 = {
         // }.bind(this));
         
         // 問題寫法: this 丟失
-        // this.hobbies.forEach(function(hobby) {
-        //     console.log(`${this.name} likes ${hobby}`); // this.name 是 undefined
-        // });
+        this.hobbies.forEach(function(hobby) {
+            console.log(`${this.name} likes ${hobby}`); // this.name 是 undefined
+        });
     }
 };
 
@@ -164,34 +164,34 @@ class Button {
     
     // 問題：callback 中的 this 指向全局
     registerClickBad() {
-        // document.addEventListener('click', function() {
-        //     console.log(`Button ${this.text} clicked!`); // this.text 是 undefined
-        // });
+        document.addEventListener('click', function() {
+            console.log(`Button ${this.text} clicked!`); // this.text 是 undefined
+        });
         console.log("已註冊點擊處理 (但 this 會丟失)");
     }
     
     // 解決方案 1：保存 this
     registerClickBetter1() {
         const self = this;
-        // document.addEventListener('click', function() {
-        //     console.log(`Button ${self.text} clicked!`); // 使用閉包捕獲的 self
-        // });
+        document.addEventListener('click', function() {
+            console.log(`Button ${self.text} clicked!`); // 使用閉包捕獲的 self
+        });
         console.log("已註冊點擊處理 (使用 self)");
     }
     
     // 解決方案 2：綁定 this
     registerClickBetter2() {
-        // document.addEventListener('click', function() {
-        //     console.log(`Button ${this.text} clicked!`);
-        // }.bind(this));
+        document.addEventListener('click', function() {
+            console.log(`Button ${this.text} clicked!`);
+        }.bind(this));
         console.log("已註冊點擊處理 (使用 bind)");
     }
     
     // 解決方案 3：使用箭頭函數 (ES6+, 推薦)
     registerClick() {
-        // document.addEventListener('click', () => {
-        //     console.log(`Button ${this.text} clicked!`);
-        // });
+        document.addEventListener('click', () => {
+            console.log(`Button ${this.text} clicked!`);
+        });
         console.log("已註冊點擊處理 (使用箭頭函數)");
     }
 }
